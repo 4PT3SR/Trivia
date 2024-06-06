@@ -10,8 +10,10 @@ export const quizApi = createApi({
       query: (lvl) => {
         // const lvl = localStorage.getItem('Trivia_level')
         // console.log(lvl)
+        console.log('The api was consumed')
         return `?amount=10&difficulty=${lvl}&type=boolean&encode=url3986`
       },
+      keepUnusedDataFor: 0
     }),
   }),
 })

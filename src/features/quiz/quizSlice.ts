@@ -31,16 +31,16 @@ export const quizSlice = createSlice({
         } else {
           _quiz.check = 'wrong';
         }
+        state.finishedQuiz.push(_quiz);
+        
+        if(!(state.currentQuizIndex < state.number_of_quiz-1)) {
+         state.completed = true;
+         return
+        }
+        state.currentQuizIndex++
+        state.currentQuiz = state.allQuiz[state.currentQuizIndex]
       }
      
-      state.finishedQuiz.push(_quiz);
-      
-      if(!(state.currentQuizIndex < state.number_of_quiz-1)) {
-       state.completed = true;
-       return
-      }
-      state.currentQuizIndex++
-      state.currentQuiz = state.allQuiz[state.currentQuizIndex]
       
      
 
@@ -51,10 +51,20 @@ export const quizSlice = createSlice({
      state.number_of_quiz = action.payload?.length
      state.currentQuiz = state.allQuiz[state.currentQuizIndex]
     },
+    playAgain:(state) => {
+      state.completed = !state.completed;
+      state.finishedQuiz = []
+      state.currentQuizIndex = 0
+      state.number_of_quiz = 0
+      state.score = 0
+      state.allQuiz = []
+
+      console.log(state)
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { checkAnswer,setQuiz  } = quizSlice.actions
+export const { checkAnswer,setQuiz, playAgain  } = quizSlice.actions
 
 export default quizSlice.reducer

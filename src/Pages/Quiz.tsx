@@ -1,5 +1,5 @@
 import Button from "../Components/Button"
-import { useEffect, } from "react"
+import { useEffect} from "react"
 import type { RootState } from '../store'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkAnswer,setQuiz } from '../features/quiz/quizSlice'
@@ -7,12 +7,15 @@ import { useGetAllQuizQuery } from "../features/quiz/quizApi"
 import { apiQuiz } from "../utils/types"
 import { useNavigate } from "react-router-dom"
 import Loader from "../Components/loader"
+
 const Quiz = () => {
+    // const [difficulty, setDifficulty] = useState('')
     const navigate = useNavigate();
     const quizState = useSelector((state: RootState) => state.quiz);
     const dispatch = useDispatch();
+    const { data, isLoading} = useGetAllQuizQuery(window.localStorage.getItem('Trivia_level')?.toLocaleLowerCase() || 'easy')
     
-    // check if the user has set level
+    
     useEffect(()=>{
         if(!localStorage.getItem('Trivia_level')) {
             navigate('/')
@@ -20,22 +23,23 @@ const Quiz = () => {
     },[navigate])
 
     
-    const { data, isLoading} = useGetAllQuizQuery(window.localStorage.getItem('Trivia_level')?.toLocaleLowerCase())
     //navigate to the result page when quiz gets completed
     useEffect(()=>{
-        
+        console.log(quizState.completed)
         if(quizState.completed) {
             navigate('/result')  
         } 
     },[quizState.completed,navigate])
 
     useEffect(()=>{
+        console.log(data);
         const apiQuiz = data?.results.map((quiz:apiQuiz) => {
                         return {question: quiz.question, correct_answer: quiz['correct_answer'],category:quiz.category, check: null}
                      });
 
        if(apiQuiz) dispatch(setQuiz(apiQuiz))
-   
+        console.log('got here');
+        console.log(apiQuiz);
         
         },[data,dispatch]);
 

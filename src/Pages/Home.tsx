@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Home = () => {
 
-    const [level, setLevel] = useState<string>(()=> window.localStorage.getItem('Trivia_level') || 'Easy' )
+    const [level, setLevel] = useState<string>(()=> window.localStorage.getItem('Trivia_level') || 'easy' )
 
    
 
@@ -14,7 +14,7 @@ const Home = () => {
     
     const levelClickHandler = (e?:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const btn = e?.target as HTMLButtonElement;
-       setLevel(btn.innerText)
+       setLevel(btn.innerText.toLowerCase())
         
     }
     
@@ -24,7 +24,7 @@ const Home = () => {
         return level == dif? 'active': ''
     }
    return (
-    <div className="h-screen w-screen text-center px-10 py-5 flex flex-col justify-between">
+    <div className="h-screen w-screen text-center px-10 py-5 flex flex-col justify-between overflow-y-scroll">
         <header className="font-bold text-4xl">
             <h1>Welcome to the Trivia Challenge!</h1>
         </header>
@@ -36,11 +36,11 @@ const Home = () => {
 
         <footer>
             <p className="pb-5">Select difficulty level:</p>
-            <div className="flex gap-x-3 justify-center pb-10 font-mono">
+            <div className="flex gap-x-1 md:gap-x-3 justify-center pb-10 font-mono">
                 {/* <button >Easy</button> */}
-                <Button  onClick={levelClickHandler} className={setActive('Easy')}>Easy</Button>
-                <Button onClick={levelClickHandler} className={setActive('Medium')}>Medium</Button>
-                <Button onClick={levelClickHandler} className={setActive('Hard')}>Hard</Button>
+                <Button  onClick={levelClickHandler} className={setActive('easy')}>Easy</Button>
+                <Button onClick={levelClickHandler} className={setActive('medium')}>Medium</Button>
+                <Button onClick={levelClickHandler} className={setActive('hard')}>Hard</Button>
                 {/* <button>Easy</button>
                 <button>Easy</button> */}
             </div>
