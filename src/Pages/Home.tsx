@@ -36,7 +36,7 @@ const Home = () => {
 
         <footer>
             <p className="pb-5">Select difficulty level:</p>
-            <div className="flex gap-x-1 md:gap-x-3 justify-center pb-10 font-mono">
+            <div className="flex flex-wrap gap-x-3 gap-y-2 justify-center pb-10 font-mono">
                 {/* <button >Easy</button> */}
                 <Button  onClick={levelClickHandler} className={setActive('easy')}>Easy</Button>
                 <Button onClick={levelClickHandler} className={setActive('medium')}>Medium</Button>
